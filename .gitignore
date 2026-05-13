@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+models/*.pkl
+airflow/logs/
+.env
+*.db
+dbt/target/
+dbt/dbt_packages/
+make_commits.sh
