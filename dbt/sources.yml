@@ -1,0 +1,38 @@
+version: 2
+
+sources:
+  - name: pipeline
+    database: pipeline
+    schema: public
+    tables:
+      - name: raw_exchange_rates
+        description: Raw exchange rates from National Bank of Kazakhstan API
+        columns:
+          - name: id
+            description: Primary key
+          - name: fetch_date
+            description: Date when rates were fetched
+          - name: currency_code
+            description: ISO currency code (USD, EUR, etc.)
+          - name: currency_name
+            description: Full currency name
+          - name: rate
+            description: Exchange rate to KZT
+          - name: quantity
+            description: Quantity for which rate is given
+
+      - name: ml_predictions
+        description: ML model predictions for next-day exchange rates
+        columns:
+          - name: prediction_date
+            description: Date of prediction
+          - name: currency_code
+            description: Currency being predicted
+          - name: predicted_rate
+            description: Predicted exchange rate
+          - name: actual_rate
+            description: Actual exchange rate on that day
+          - name: model_name
+            description: Name of ML model used
+          - name: mae
+            description: Mean Absolute Error of the model

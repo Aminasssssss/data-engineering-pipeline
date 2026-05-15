@@ -1,0 +1,26 @@
+name: 'exchange_rates_pipeline'
+version: '1.0.0'
+config-version: 2
+
+profile: 'exchange_rates'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  exchange_rates_pipeline:
+    staging:
+      +materialized: view
+      +schema: staging
+    mart:
+      +materialized: table
+      +schema: mart
