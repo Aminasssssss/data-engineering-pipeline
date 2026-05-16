@@ -1,0 +1,59 @@
+{
+  "title": "Kazakhstan Exchange Rates Pipeline",
+  "uid": "exchange-rates",
+  "version": 1,
+  "panels": [
+    {
+      "id": 1,
+      "title": "USD/KZT Rate — Last 30 Days",
+      "type": "timeseries",
+      "datasource": "PostgreSQL",
+      "targets": [
+        {
+          "rawSql": "SELECT fetch_date AS time, rate FROM raw_exchange_rates WHERE currency_code = 'USD' ORDER BY fetch_date DESC LIMIT 30",
+          "format": "time_series"
+        }
+      ],
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}
+    },
+    {
+      "id": 2,
+      "title": "EUR/KZT Rate — Last 30 Days",
+      "type": "timeseries",
+      "datasource": "PostgreSQL",
+      "targets": [
+        {
+          "rawSql": "SELECT fetch_date AS time, rate FROM raw_exchange_rates WHERE currency_code = 'EUR' ORDER BY fetch_date DESC LIMIT 30",
+          "format": "time_series"
+        }
+      ],
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}
+    },
+    {
+      "id": 3,
+      "title": "ML Predictions vs Actual — USD",
+      "type": "timeseries",
+      "datasource": "PostgreSQL",
+      "targets": [
+        {
+          "rawSql": "SELECT prediction_date AS time, predicted_rate, actual_rate FROM ml_predictions WHERE currency_code = 'USD' ORDER BY prediction_date DESC LIMIT 30",
+          "format": "time_series"
+        }
+      ],
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8}
+    },
+    {
+      "id": 4,
+      "title": "Model MAE by Currency",
+      "type": "barchart",
+      "datasource": "PostgreSQL",
+      "targets": [
+        {
+          "rawSql": "SELECT currency_code, AVG(mae) as avg_mae FROM ml_predictions GROUP BY currency_code ORDER BY avg_mae",
+          "format": "table"
+        }
+      ],
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8}
+    }
+  ]
+}
